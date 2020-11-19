@@ -80,44 +80,71 @@ public class BowlingGameTest {
     }
 
     @Test
-    void shouldReturn20AfterStrikeAnd2Rolls5PinsEach() throws BowlingGameException {
-        bowlingGame.charRoll('X');
-        bowlingGame.roll(5);
-        bowlingGame.roll(5);
-        assertThat(bowlingGame.getScore()).isEqualTo(20);
+    void shouldReturn26AfterStrikeAnd2Rolls4PinsEach() throws BowlingGameException {
+        bowlingGame.roll("X");
+        bowlingGame.roll(4);
+        bowlingGame.roll(4);
+        assertThat(bowlingGame.getScore()).isEqualTo(26);
     }
 
-    @Test
-    void shouldReturnStrikeStateAfterX() throws BowlingGameException {
-        bowlingGame.charRoll('X');
-        assertThat(bowlingGame.getStatus()).isEqualTo('X');
-    }
+//    @Test
+//    void shouldReturnStrikeStateAfterX() throws BowlingGameException {
+//        bowlingGame.roll("X");
+//        assertThat(bowlingGame.getStatus()).isEqualTo('X');
+//    }
 
-    @Test
-    void shouldReturnSpareStateAfterSpareSign() throws BowlingGameException {
-        bowlingGame.charRoll('/');
-        assertThat(bowlingGame.getStatus()).isEqualTo('/');
-    }
+//    @Test
+//    void shouldReturnSpareStateAfterSpareSign() throws BowlingGameException {
+//        bowlingGame.roll("/");
+//        assertThat(bowlingGame.getStatus()).isEqualTo('/');
+//    }
 
     @Test
     void  shouldReturn10PointsAfterStrikeOnly() throws BowlingGameException {
-        bowlingGame.charRoll('X');
+        bowlingGame.roll("X");
         assertThat(bowlingGame.getScore()).isEqualTo(10);
     }
 
     @Test
-    void  shouldReturn20PoinstAfter5Spare5() throws BowlingGameException {
+    void  shouldReturn20PointsAfter5Spare5() throws BowlingGameException {
         bowlingGame.roll(5);
-        bowlingGame.charRoll('/');
+        bowlingGame.roll("/");
         bowlingGame.roll(5);
         assertThat(bowlingGame.getScore()).isEqualTo(20);
     }
 
     @Test
-    void shouldReturn30After3Strike() throws BowlingGameException {
-        bowlingGame.charRoll('X');
-        bowlingGame.charRoll('X');
-        bowlingGame.charRoll('X');
-        assertThat(bowlingGame.getScore()).isEqualTo(50);
+    void shouldReturn60After3Strike() throws BowlingGameException {
+        bowlingGame.roll("X");
+        bowlingGame.roll("X");
+        bowlingGame.roll("X");
+        assertThat(bowlingGame.getScore()).isEqualTo(60);
+    }
+
+    @Test
+    void twelveStrikesShouldReturn300Points() throws  BowlingGameException{
+        for( int i = 0 ; i < 12 ; i++ ){
+            bowlingGame.roll("X");
+        }
+        assertThat(bowlingGame.getScore()).isEqualTo(300);
+    }
+
+    @Test
+    void tenPairsOf9AndMissShouldReturn90() throws BowlingGameException {
+        for( int i = 0; i < 10 ; i++ ){
+            bowlingGame.roll(9);
+            bowlingGame.roll("-");
+        }
+        assertThat(bowlingGame.getScore()).isEqualTo(90);
+    }
+
+    @Test
+    void tenPairsOf5AndSparePlus5ShouldReturn150() throws BowlingGameException {
+        for( int i = 0; i < 10 ; i++ ){
+            bowlingGame.roll(5);
+            bowlingGame.roll("/");
+        }
+        bowlingGame.roll(5);
+        assertThat(bowlingGame.getScore()).isEqualTo(150);
     }
 }
