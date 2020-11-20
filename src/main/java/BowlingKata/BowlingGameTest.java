@@ -87,18 +87,6 @@ public class BowlingGameTest {
         assertThat(bowlingGame.getScore()).isEqualTo(26);
     }
 
-//    @Test
-//    void shouldReturnStrikeStateAfterX() throws BowlingGameException {
-//        bowlingGame.roll("X");
-//        assertThat(bowlingGame.getStatus()).isEqualTo('X');
-//    }
-
-//    @Test
-//    void shouldReturnSpareStateAfterSpareSign() throws BowlingGameException {
-//        bowlingGame.roll("/");
-//        assertThat(bowlingGame.getStatus()).isEqualTo('/');
-//    }
-
     @Test
     void  shouldReturn10PointsAfterStrikeOnly() throws BowlingGameException {
         bowlingGame.roll("X");

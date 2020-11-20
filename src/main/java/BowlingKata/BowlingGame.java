@@ -10,8 +10,8 @@ public class BowlingGame {
     // "/" for spare
     // "X" for strike
 
-    private int[][] frames = new int[12][2];
-    private int[] points = new int[12];
+    private int[][] frames = new int[13][2];
+    private int[] points = new int[13];
 
     private int[] currentFrame = new int[2];
     private int currentFrameNum = 1;
@@ -22,14 +22,16 @@ public class BowlingGame {
 
     public int getScore() {
         int totalScore = 0;
-//        for( int[] a : this.frames){
-//            totalScore += a[0];
-//            totalScore += a[1];
-//        }
 
-        for( int i = this.currentFrameNum; i >= 0 ; i-- ){
-            totalScore += this.getPointsFromFrame(i);
+        for( int i = 10; i >= 0 ; i-- ){
+            points[i] = this.getPointsFromFrame(i);
         }
+
+        for( int j = 0; j < points.length; j++){
+            System.out.println("Frame " + j + "Points: " + points[j]);
+            totalScore += points[j];
+        }
+
         return totalScore;
     }
 
@@ -37,9 +39,13 @@ public class BowlingGame {
         int points = 0;
 
         if (this.checkForSpare(frameNum)){
-            points += this.frames[frameNum+1][0];
+            points += this.getNextRollPoints(frameNum);
+
         }else if(this.checkForStrike(frameNum)){
-//            get next roll
+            if(this.checkForStrike(frameNum + 1)){
+                points += this.getNextRollPoints(frameNum);
+                points += this.frames[frameNum + 2][0];
+            }
         }
         points += this.frames[frameNum][0] + this.frames[frameNum][1];
         return  points;
@@ -50,11 +56,12 @@ public class BowlingGame {
     }
 
     private int getNextTwoRollPoints(int frame){
-        return 0;
+        return points[frame + 1];
     }
 
     private void strike() throws BowlingGameException{
         this.roll(10);
+        this.currentFrameNum += 1;
     }
 
     private void spare() throws  BowlingGameException {
@@ -80,22 +87,15 @@ public class BowlingGame {
             this.frames[this.currentFrameNum][1] = pins;
             this.currentFrameNum += 1;
         }
-
     }
+
     private boolean checkForSpare( int frame){
-        if ( this.frames[frame][0] + this.frames[frame][1] == 10
-             && this.frames[this.currentFrameNum - 1][0] != 10 ){
-            return true;
-        }
-        return false;
+        return this.frames[frame][0] + this.frames[frame][1] == 10
+                && this.frames[frame][0] != 10;
     }
 
     private boolean checkForStrike(int frame ){
-        if( this.frames[frame][0] == 10 ){
-            return true;
-        }else{
-            return false;
-        }
+        return this.frames[frame][0] == 10;
     }
 
     public void runFrame( String frame ) throws BowlingGameException {
@@ -109,9 +109,6 @@ public class BowlingGame {
                 this.roll( frame.charAt(i));
             }
         }
-    }
-    public char getStatus() {
-        return this.status;
     }
 
     public int getFrameNumber() {
