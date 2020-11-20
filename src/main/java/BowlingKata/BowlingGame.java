@@ -45,6 +45,9 @@ public class BowlingGame {
             if(this.checkForStrike(frameNum + 1)){
                 points += this.getNextRollPoints(frameNum);
                 points += this.frames[frameNum + 2][0];
+            }else{
+                points += this.frames[frameNum + 1][0];
+                points += this.frames[frameNum + 1][1];
             }
         }
         points += this.frames[frameNum][0] + this.frames[frameNum][1];
