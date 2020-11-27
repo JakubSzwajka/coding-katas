@@ -5,7 +5,7 @@ import java.util.*;
 public class App {
 
     ArrayList<ArrayList<String>> schema = new ArrayList<ArrayList<String>>();
-    Parser parser = new Parser(prepareSchema());
+//    Parser parser = new Parser(prepareSchema());
     public static void main(String[] args) {
 
     }
