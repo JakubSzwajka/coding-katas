@@ -76,4 +76,15 @@ public class ParserTest {
         assertThat(programInput.get(3).getValue()).isEqualTo("0");
         assertThat(programInput.get(4).getValue()).isEqualTo("0");
     }
+
+    @Test
+    public void shouldParseInputWithSchemaString(){
+        ArrayList<Pair<String, String>> programInput = parser.parseInput("-b 1 -c ala_ma_kota -d 32");
+
+        assertThat(programInput.get(0).getValue()).isEqualTo("0");
+        assertThat(programInput.get(1).getValue()).isEqualTo("1");
+        assertThat(programInput.get(2).getValue()).isEqualTo("ala_ma_kota");
+        assertThat(programInput.get(3).getValue()).isEqualTo("32");
+        assertThat(programInput.get(4).getValue()).isEqualTo("0");
+    }
 }

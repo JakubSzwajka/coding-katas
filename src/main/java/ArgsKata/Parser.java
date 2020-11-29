@@ -81,16 +81,23 @@ public class Parser {
                 value = this.getValueByKey(pair.getKey());
             } catch (ParserException e) {
 //                default values
-//                switch (pair.getValue())
-
+                switch (pair.getValue()){
+                    case "int":
+                        value = "0";
+                        break;
+                    case "bool":
+                        value = "0";
+                        break;
+                    case "String":
+                        value = "";
+                        break;
+                }
             }
 
             pair = new Pair<>(pair.getKey(), value);
             tempSchema.set(i , pair);
             i++;
-            System.out.println("Key: " + pair.getKey() + " Value: " + pair.getValue());
         }
-
         return tempSchema;
     }
 }
